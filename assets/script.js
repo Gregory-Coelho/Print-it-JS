@@ -19,5 +19,30 @@ const slides = [
 ];
 
 let indexCarouselImage = 0;
-let dots = document.getElementsByClassName("dot");
-let currentDots = document.querySelectorAll(".dot");
+let numberOfDots = slides.length + 1;
+let currentImage = slides[indexCarouselImage].image;
+let currentTagLine = slides[indexCarouselImage].tagLine;
+// let dots = document.getElementsByClassName("dot");
+// let currentDots = document.querySelectorAll(".dot");
+
+const rightArrow = document.getElementById("rightArrow");
+rightArrow.addEventListener("click", function () {
+  changeCarouselImage(+1);
+});
+
+const lefttArrow = document.getElementById("lefttArrow");
+lefttArrow.addEventListener("click", function () {
+  changeCarouselImage(-1);
+});
+
+function changeCarouselImage(changeSlide) {
+  currentSlide = currentSlide + changeSlide;
+  if (currentSlide > slides.length - 1) {
+    currentSlide = 0;
+  }
+  if (currentSlide < 0) {
+    currentSlide = slides.length - 1;
+  }
+  document.getElementById("bannerImg").src =
+    "./assets/images/slideshow/" + slides[currentSlide].image;
+}
