@@ -16,29 +16,13 @@ const slides = [
     image: "slide4.png",
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
-  // {
-  //   image: "slide4.png",
-  //   tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
-  // },
-  // {
-  //   image: "slide4.png",
-  //   tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
-  // },
-  // {
-  //   image: "slide4.png",
-  //   tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
-  // },
-  // {
-  //   image: "slide4.png",
-  //   tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
-  // },
 ];
 
 const dots = document.getElementsByClassName("dot");
 const rightArrow = document.getElementById("rightArrow");
 const lefttArrow = document.getElementById("leftArrow");
 
-let indexCarouselImage = 0;
+let index = 0;
 
 const addDots = () => {
   const dots = document.querySelector(".dots");
@@ -58,24 +42,25 @@ const dotSelected = () => {
   for (let i = 0; i < dots.length; i++) {
     dots[i].classList.remove("dot_selected");
   }
-  dots[indexCarouselImage].classList.add("dot_selected");
+  dots[index].classList.add("dot_selected");
 };
 
 const changeTagLine = () => {
   const slideText = document.getElementById("tagLine");
-  slideText.innerHTML = slides[indexCarouselImage].tagLine;
+  slideText.innerHTML = slides[index].tagLine;
+  console.log({ testIndex: index });
 };
 
-const changeCarouselImage = (changeSlide) => {
-  indexCarouselImage = indexCarouselImage + changeSlide;
-  if (indexCarouselImage > slides.length - 1) {
-    indexCarouselImage = 0;
+const changeCarouselImage = (dir) => {
+  index = index + dir;
+  if (index > slides.length - 1) {
+    index = 0;
   }
-  if (indexCarouselImage < 0) {
-    indexCarouselImage = slides.length - 1;
+  if (index < 0) {
+    index = slides.length - 1;
   }
   document.getElementById("bannerImg").src =
-    "./assets/images/slideshow/" + slides[indexCarouselImage].image;
+    "./assets/images/slideshow/" + slides[index].image;
   dotSelected();
   changeTagLine();
 };
@@ -89,5 +74,5 @@ lefttArrow.addEventListener("click", () => {
   console.log({ clickGauchet: "click gauche" });
   changeCarouselImage(-1);
 });
-
+console.log({ coucou: index });
 addDots();
