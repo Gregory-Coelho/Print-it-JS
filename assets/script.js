@@ -42,12 +42,12 @@ const rightArrow = document.getElementById("rightArrow");
 
 const lefttArrow = document.getElementById("leftArrow");
 
-rightArrow.addEventListener("click", function () {
+rightArrow.addEventListener("click", () => {
   console.log({ clickDroit: "click droit" });
   changeCarouselImage(+1);
 });
 
-lefttArrow.addEventListener("click", function () {
+lefttArrow.addEventListener("click", () => {
   console.log({ clickGauchet: "click gauche" });
   changeCarouselImage(-1);
 });
@@ -71,12 +71,12 @@ const addDots = () => {
     dot.classList.add("dot");
     dots.appendChild(dot);
     dot.setAttribute("id", `slide${i}`);
+
     if (i == 0) {
       dots.children[i].classList.add("dot_selected");
     }
   }
 };
-addDots();
 
 const changeCarouselImage = (changeSlide) => {
   indexCarouselImage = indexCarouselImage + changeSlide;
@@ -91,3 +91,5 @@ const changeCarouselImage = (changeSlide) => {
   changeDot();
   changeText();
 };
+
+addDots();
