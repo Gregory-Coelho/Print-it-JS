@@ -21,6 +21,7 @@ const slides = [
 const dots = document.getElementsByClassName("dot");
 const rightArrow = document.getElementById("rightArrow");
 const lefttArrow = document.getElementById("leftArrow");
+const selectedDots = document.querySelectorAll(".dot");
 
 let index = 0;
 
@@ -48,7 +49,6 @@ const dotSelected = () => {
 const changeTagLine = () => {
   const slideText = document.getElementById("tagLine");
   slideText.innerHTML = slides[index].tagLine;
-  console.log({ testIndex: index });
 };
 
 const changeCarouselImage = (dir) => {
@@ -65,14 +65,29 @@ const changeCarouselImage = (dir) => {
   changeTagLine();
 };
 
+selectedDots.forEach((selectedDot) => {
+  selectedDot.addEventListener("click", (event) => {
+    document
+      .querySelector(".dot.dot_selected")
+      .classList.remove("dot_selected");
+    event.target.classList.add("dot_selected");
+    for (let i = 0; i < dots.length; i++) {
+      if (event.target.id == `slide${i}`) {
+        document.getElementById("slide").src =
+          "./assets/images/slideshow/" + slides[i].image;
+        document.getElementById("tagLine").innerHTML = slides[i].tagLine;
+        return (index = i);
+      }
+    }
+  });
+});
+
 rightArrow.addEventListener("click", () => {
-  console.log({ clickDroit: "click droit" });
   changeCarouselImage(+1);
 });
 
 lefttArrow.addEventListener("click", () => {
-  console.log({ clickGauchet: "click gauche" });
   changeCarouselImage(-1);
 });
-console.log({ coucou: index });
+
 addDots();

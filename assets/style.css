@@ -206,9 +206,11 @@ header {
   position: absolute;
 }
 #banner .arrow_left {
+  cursor: pointer;
   left: 10px;
 }
 #banner .arrow_right {
+  cursor: pointer;
   right: 10px;
 }
 /* Gestion des points du carrousel */
@@ -225,6 +227,7 @@ header {
   border: 3px solid #fff;
   border-radius: 100%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 .dot_selected {
   background-color: #fff;
