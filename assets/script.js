@@ -17,20 +17,19 @@ const slides = [
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
-
-const dots = document.getElementsByClassName("dot");
-const rightArrow = document.getElementById("rightArrow");
-const lefttArrow = document.getElementById("leftArrow");
-const selectedDots = document.querySelectorAll(".dot");
-
+// Initialize index variable to "moove" into the array
 let index = 0;
 
+// Initialize dots variable (multiple dot)
+const dots = document.getElementsByClassName("dot");
+
+// Function addDots : add a number of dot equal to element in the array "slides"
 const addDots = () => {
   const dots = document.querySelector(".dots");
   for (let i = 0; i < slides.length; i++) {
     const dot = document.createElement("span");
-    dot.classList.add("dot");
     dots.appendChild(dot);
+    dot.classList.add("dot");
     dot.setAttribute("id", `slide${i}`);
 
     if (i == 0) {
@@ -39,16 +38,17 @@ const addDots = () => {
   }
 };
 
-const dotSelected = () => {
+// Function changeDot : change the background color of the current dot
+const changeDot = () => {
   for (let i = 0; i < dots.length; i++) {
     dots[i].classList.remove("dot_selected");
   }
   dots[index].classList.add("dot_selected");
 };
 
+// Function changeTagLine : change the tagLine with the current index
 const changeTagLine = () => {
-  const slideText = document.getElementById("tagLine");
-  slideText.innerHTML = slides[index].tagLine;
+  document.getElementById("tagLine").innerHTML = slides[index].tagLine;
 };
 
 const changeCarouselImage = (dir) => {
@@ -59,35 +59,48 @@ const changeCarouselImage = (dir) => {
   if (index < 0) {
     index = slides.length - 1;
   }
-  document.getElementById("bannerImg").src =
-    "./assets/images/slideshow/" + slides[index].image;
-  dotSelected();
+  document.getElementById(
+    "bannerImg"
+  ).src = `./assets/images/slideshow/${slides[index].image}`;
+  changeDot();
   changeTagLine();
 };
 
-selectedDots.forEach((selectedDot) => {
+document.getElementById("rightArrow").addEventListener("click", () => {
+  changeCarouselImage(+1);
+});
+
+document.getElementById("leftArrow").addEventListener("click", () => {
+  changeCarouselImage(-1);
+});
+
+console.log("bonjour");
+
+document.querySelectorAll(".dot").forEach((selectedDot) => {
+  console.log("hello");
   selectedDot.addEventListener("click", (event) => {
+    console.log("coucou");
     document
       .querySelector(".dot.dot_selected")
       .classList.remove("dot_selected");
     event.target.classList.add("dot_selected");
     for (let i = 0; i < dots.length; i++) {
       if (event.target.id == `slide${i}`) {
-        document.getElementById("slide").src =
-          "./assets/images/slideshow/" + slides[i].image;
+        document.getElementById(
+          "slide"
+        ).src = `./assets/images/slideshow/${slides[i].image}`;
         document.getElementById("tagLine").innerHTML = slides[i].tagLine;
         return (index = i);
       }
     }
   });
-});
-
-rightArrow.addEventListener("click", () => {
-  changeCarouselImage(+1);
-});
-
-lefttArrow.addEventListener("click", () => {
-  changeCarouselImage(-1);
+  selectedDot.addEventListener("mouseover", (event) => {
+    if (event.target.classList.contains("dot_selected")) {
+      event.target.style.cursor = "default";
+    } else {
+      event.target.style.cursor = "pointer";
+    }
+  });
 });
 
 addDots();
