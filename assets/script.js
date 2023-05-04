@@ -21,7 +21,7 @@ const slides = [
 let index = 0;
 
 // Initialize dots variable (multiple dot)
-const dots = document.getElementsByClassName("dot");
+let dots = document.getElementsByClassName("dot");
 
 // Function addDots : add a number of dot equal to element in the array "slides"
 const addDots = () => {
@@ -51,6 +51,7 @@ const changeTagLine = () => {
   document.getElementById("tagLine").innerHTML = slides[index].tagLine;
 };
 
+// Function changeCarouselImage : change the image of the carousel
 const changeCarouselImage = (dir) => {
   index = index + dir;
   if (index > slides.length - 1) {
@@ -66,34 +67,34 @@ const changeCarouselImage = (dir) => {
   changeTagLine();
 };
 
+// Change the current index, use when you click on the right arrow
 document.getElementById("rightArrow").addEventListener("click", () => {
   changeCarouselImage(+1);
 });
 
+// Change the current index, use when you click on the left arrow
 document.getElementById("leftArrow").addEventListener("click", () => {
   changeCarouselImage(-1);
 });
 
-console.log("bonjour");
-
-document.querySelectorAll(".dot").forEach((selectedDot) => {
-  console.log("hello");
+// You can click on a none selected dot to change the current dot (with images and tagline)
+document.querySelectorAll(".dots").forEach((selectedDot) => {
   selectedDot.addEventListener("click", (event) => {
-    console.log("coucou");
     document
       .querySelector(".dot.dot_selected")
       .classList.remove("dot_selected");
     event.target.classList.add("dot_selected");
     for (let i = 0; i < dots.length; i++) {
-      if (event.target.id == `slide${i}`) {
+      if (event.target.id === `slide${i}`) {
         document.getElementById(
-          "slide"
+          "bannerImg"
         ).src = `./assets/images/slideshow/${slides[i].image}`;
         document.getElementById("tagLine").innerHTML = slides[i].tagLine;
         return (index = i);
       }
     }
   });
+  // Add a mouseover to never have the pointer when a dot is selected
   selectedDot.addEventListener("mouseover", (event) => {
     if (event.target.classList.contains("dot_selected")) {
       event.target.style.cursor = "default";
