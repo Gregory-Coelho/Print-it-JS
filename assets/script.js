@@ -32,11 +32,14 @@ const addDots = () => {
     dot.classList.add("dot");
     dot.setAttribute("id", `slide${i}`);
 
-    if (i == 0) {
+    if (i === 0) {
       dots.children[i].classList.add("dot_selected");
     }
   }
 };
+
+// Call the function addDots
+addDots();
 
 // Function changeDot : change the background color of the current dot
 const changeDot = () => {
@@ -78,7 +81,7 @@ document.getElementById("leftArrow").addEventListener("click", () => {
 });
 
 // You can click on a none selected dot to change the current dot (with images and tagline)
-document.querySelectorAll(".dots").forEach((selectedDot) => {
+document.querySelectorAll(".dot").forEach((selectedDot) => {
   selectedDot.addEventListener("click", (event) => {
     document
       .querySelector(".dot.dot_selected")
@@ -103,5 +106,3 @@ document.querySelectorAll(".dots").forEach((selectedDot) => {
     }
   });
 });
-
-addDots();
